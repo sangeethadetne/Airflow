@@ -1,0 +1,16 @@
+from airflow import DAG
+from datetime import datetime
+from airflow.operators.python import PythonOperator
+
+def print_a():
+    print("Hi from task_a")
+
+with DAG('my_dag',
+         start_date=datetime(2025,1,1),
+         schedule ='@daily',
+         catchup=False,
+         descritpion ="simple test dag",
+         tags =["First Dag"]
+         ):
+    
+    task_a = PythonOperator(task_id = 'task_a',python_callable = print_a)
